@@ -1,0 +1,336 @@
+*Single Inhertence */
+
+class Person{			     //parent/base/super class
+	String name;
+	String address;
+	Person(String name,String address){
+		this.name=name;
+		this.address=address;
+	}
+	void info() {
+		System.out.println("Information...");
+	}
+}
+class Student extends Person{  //child/derived/sub class
+	String id;
+	String dept;
+	Student(String name,String address,String id,String dept)
+	{
+		super(name,address);  // call base constructor
+		this.id=id;
+		this.dept=dept;
+	}
+	void display() {
+		super.info();//access base class method
+		System.out.print("Name : "+super.name+" Address : "+super.address);//access base class member
+		System.out.println(" Id : "+id+" Department : "+dept);
+	}
+	
+}
+
+public class Main {
+	public static void main(String[] args) {
+		Student stu=new Student("Sougata","Howrah","S12","BCA");
+		stu.display();
+
+	}
+
+}
+
+------------------------------------------------------------------------------------------------------------
+/*Multilevel Inhertence */
+
+class Person{			//parent/base/super class
+	String name;
+	String address;
+	Person(String name,String address){
+		this.name=name;
+		this.address=address;
+	}
+	void info() {
+		System.out.println("Information...");
+	}
+}
+class Student extends Person{  //child/derived/sub class
+	String id;
+	String dept;
+	Student(String name,String address,String id,String dept)
+	{
+		super(name,address);  // call base constructor
+		this.id=id;
+		this.dept=dept;
+	}
+	void display() {
+		super.info();//access base class method
+		System.out.print("Name : "+super.name+" Address : "+super.address);//access base class member
+		System.out.println(" Id : "+id+" Department : "+dept);
+	}
+	
+}
+class Monitor extends Student
+{
+	int mid;
+	Monitor (String name,String address,String id,String dept,int mid)
+	{
+		super(name,address,id,dept);
+		this.mid=mid;
+	}
+	void show()
+	{
+		System.out.println("This student is class monitor");
+	}
+}
+
+public class Main {
+	public static void main(String[] args) {
+		Monitor stu=new Monitor("Sougata","Howrah","S12","BCA",1);
+		stu.display();
+		stu.show();
+
+	}
+
+}
+
+------------------------------------------------------------------------------------------------------
+
+/* Java program to demonstrate Upcasting Vs Downcasting*/
+
+class Parent {                        // Parent class
+	String name;
+	// A method which prints the signature of the parent class
+	void method()
+	{
+		System.out.println("Method from Parent");
+	}
+}
+
+class Child extends Parent {         // Child class
+	int id;
+
+	// Overriding the parent method to print the signature of the child class
+        void method()
+	{
+		System.out.println("Method from Child");
+	}
+}
+
+// Demo class to see the difference between upcasting and downcasting
+public class GFG {
+	// Driver code
+	public static void main(String[] args)
+	{
+		// Upcasting
+		Parent p = new Child();
+		p.name = "GeeksforGeeks";
+
+		//Printing the parentclass name
+		System.out.println(p.name);
+		//parent class method is overridden method hence this will be executed
+		p.method();
+
+		// Trying to Downcasting Implicitly
+		// Child c = new Parent(); - > compile time error
+
+		// Downcasting Explicitly
+		Child c = (Child)p;
+
+		c.id = 1;
+		System.out.println(c.name);
+		System.out.println(c.id);
+		c.method();
+	}
+}
+
+---------------------------------------------------------------------
+Abstract_class
+
+
+package inheritance;
+
+abstract class Person{			     //parent/base/super class
+	String name;
+	String address;
+	Person(String name,String address){
+		this.name=name;
+		this.address=address;
+	}
+	abstract void display() ;
+	
+}
+class Student extends Person{  //child/derived/sub class
+	String id;
+	String dept;
+	Student(String name,String address,String id,String dept)
+	{
+		super(name,address);  // call base constructor
+		this.id=id;
+		this.dept=dept;
+	}
+	void display() {
+		
+		System.out.print("Name : "+super.name+" Address : "+super.address);//access base class member
+		System.out.println(" Id : "+id+" Department : "+dept);
+	}
+	
+}
+
+class Teacher extends Person{
+	String designation;
+	Teacher(String name,String address,String designation){
+		super(name,address);
+		this.designation=designation;
+		
+	}
+	void display() {
+		System.out.print("Name : "+super.name+" Address : "+super.address);
+		System.out.println(" Designation: "+designation);
+	}
+}
+
+public class Abstract_Main {
+	public static void main(String[] args) {
+		Student stu=new Student("Sougata","Howrah","S12","BCA");
+		stu.display();
+		Teacher tec=new Teacher("Hemanta","Howrah","assistant prof.");
+		tec.display();
+	}
+
+}
+--------------------------------------------------------------------
+abstract class Computer{
+	public abstract void code();
+}
+
+class Laptop extends Computer{
+	public void code(){
+		System.out.println("code, compile, run");
+	}
+
+}
+class Desktop extends Computer{
+	public void code(){
+		System.out.println("code, compile, faster");
+	}
+}
+class Developer
+{
+//	public void devApp(Laptop lap){}
+//	public void devApp(Desktop lap){}
+	public void devApp(Computer lap){
+		lap.code();
+	}
+}
+
+public class Demo {
+    public static void main(String[] args) {
+//        Laptop lap=new Laptop();
+//        Desktop desk=new Desktop();
+        
+          Computer lap=new Laptop();
+          Computer desk=new Desktop();
+        
+          Developer sumon=new Developer();
+          sumon.devApp(lap);
+        
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+/*
+Aggregation is a term which is used to refer one way relationship between two objects. For example, Employee class can have reference of Address 
+class but vice versa does not make sense.
+In Java, aggregation represents HAS-A relationship, which means when a class contains reference of another class known to have aggregation.
+
+The HAS-A relationship is based on usage, rather than inheritance. In other words, class A has-a relationship with class B, if class A has a 
+reference to an instance of class B.
+
+Lets understand it by an example and consider two classes Employee and Address. Each Employee has own address that makes has-a relationship but address has
+employee not makes any sense.
+ We can understand it more clearly using Java code.
+*/
+
+
+class Address{
+	String city;
+	int pin;
+	String street;
+	Address(String city,int pin,String street){
+		this.city=city;
+		this.pin=pin;
+		this.street=street;
+	}
+	
+}
+class Employee{
+	String name;
+	int salary;
+	int id;
+	Address add;
+	Employee(String name,int salary,int id,Address add){
+		this.name=name;
+		this.salary=salary;
+		this.id=id;
+		this.add=add;
+	}
+	void display() {
+		System.out.println("Name: "+name + " Salary: " +salary + " Id: " +id + " Address: " +add.city);
+	}
+	
+}
+public class Aggregation {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Address a=new Address("kolkata",700047,"Ramgarh");
+		Employee e=new Employee("Anindita",40000,20,a);		
+		e.display();
+		
+
+	}
+
+}
+
+------------------------------------------------------------------------------
+package inheritance;
+
+class Student1{
+	int roll;
+	String name;
+	Student1(int roll,String name){
+		this.roll=roll;
+		this.name=name;
+	}
+	public String toString() {
+		return "Name: "+name+" roll: "+roll ;
+	}
+	public int hashCode() {
+		return 0;
+	}
+}
+public class ObjectClassMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Student1 s=new Student1(1,"sourish");
+		System.out.println(s.toString());
+	
+		
+		Student1 s1=new Student1(1,"sourish");
+		System.out.println(s1.getClass());
+		
+		System.out.println(s1.equals(s));
+	}
+
+}
+/*
+
+object class is a parent of all classes.
+toString()
+hashCode()
+equals()
+getClass()
+
+
+
+*/
